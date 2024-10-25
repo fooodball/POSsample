@@ -153,7 +153,84 @@
             row.cells[3].innerText = "฿" + item.totalPrice;
         }
 
-        // Checkout and reset functions, same as above...
+                function checkout() {
+            if (cartItems.length === 0) {
+                alert("Cart is empty!");
+                return;
+            }
+
+            const transaction = {
+                id: Date.now(),
+                date: new Date().toLocaleString(),
+                items: cartItems,
+                total: total
+            };
+
+            let history = JSON.parse(localStorage.getItem("transactionHistory")) || [];
+            history.push(transaction);
+            localStorage.setItem("transactionHistory", JSON.stringify(history));
+
+            alert("Total Payment: ฿" + total + "\nThank you for your purchase!");
+            resetCart();
+
+            displayHistory();
+        }
+
+        function voidTransaction() {
+            if (cartItems.length === 0) {
+                alert("Cart is already empty!");
+                return;
+            }
+
+            resetCart();
+            alert("Transaction voided.");
+        }
+
+        function displayHistory() {
+            const historySection = document.getElementById("historySection");
+            historySection.innerHTML = "";
+
+            const history = JSON.parse(localStorage.getItem("transactionHistory")) || [];
+            if (history.length === 0) {
+                historySection.innerText = "No transaction history.";
+                return;
+            }
+
+            history.forEach(transaction => {
+                const div = document.createElement("div");
+                div.innerHTML = `<strong>Date:</strong> ${transaction.date} | <strong>Total:</strong> ฿${transaction.total}`;
+
+                const ul = document.createElement("ul");
+                transaction.items.forEach(item => {
+                    const li = document.createElement("li");
+                    li.innerText = `${item.productName} - ฿${item.unitPrice} x ${item.quantity} = ฿${item.totalPrice}`;
+                    ul.appendChild(li);
+                });
+
+                div.appendChild(ul);
+                historySection.appendChild(div);
+                historySection.appendChild(document.createElement("hr"));
+            });
+        }
+
+        function clearHistory() {
+            localStorage.removeItem("transactionHistory");
+            displayHistory();
+        }
+
+        function resetCart() {
+            document.getElementById("cartTable").innerHTML = `
+                <tr>
+                    <th>Product</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>`;
+            total = 0;
+            cartItems = [];
+            document.getElementById("totalAmount").innerText = total;
+        }
     </script>
 </body>
 </html>
