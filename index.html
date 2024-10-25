@@ -58,7 +58,26 @@
             const productName = productSelect.options[productSelect.selectedIndex].text.split(" - ")[0];
             const totalPrice = unitPrice * quantity;
 
-            // Update total
+            // Check if the item already exists in the cart
+            const existingItemIndex = cartItems.findIndex(item => item.productName === productName);
+
+            if (existingItemIndex > -1) {
+                // Update existing item
+                const existingItem = cartItems[existingItemIndex];
+                existingItem.quantity += quantity;
+                existingItem.totalPrice += totalPrice;
+
+                // Update total amount
+                total += totalPrice;
+                document.getElementById("totalAmount").innerText = total;
+
+                // Update the cart table row
+                const row = document.getElementById(`item-${existingItemIndex}`);
+                row.cells[2].innerText = existingItem.quantity;
+                row.cells[3].innerText = "฿" + existingItem.totalPrice;
+
+         } else {
+                // Add new item to cart
             total += totalPrice;
             cartItems.push({ productName, unitPrice, quantity, totalPrice });
 
