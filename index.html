@@ -76,18 +76,20 @@
                 row.cells[2].innerText = existingItem.quantity;
                 row.cells[3].innerText = "฿" + existingItem.totalPrice;
 
-         } else {
+            } else {
                 // Add new item to cart
-            total += totalPrice;
-            cartItems.push({ productName, unitPrice, quantity, totalPrice });
+                total += totalPrice;
+                cartItems.push({ productName, unitPrice, quantity, totalPrice });
 
-            // Add item to cart table
-            const cartTable = document.getElementById("cartTable");
-            const row = cartTable.insertRow();
-            row.insertCell(0).innerText = productName;
-            row.insertCell(1).innerText = "฿" + unitPrice;
-            row.insertCell(2).innerText = quantity;
-            row.insertCell(3).innerText = "฿" + totalPrice;
+                // Add item to cart table
+                const cartTable = document.getElementById("cartTable");
+                const row = cartTable.insertRow();
+                row.id = `item-${cartItems.length - 1}`; // Assign an ID for easy access
+                row.insertCell(0).innerText = productName;
+                row.insertCell(1).innerText = "฿" + unitPrice;
+                row.insertCell(2).innerText = quantity;
+                row.insertCell(3).innerText = "฿" + totalPrice;
+            }
 
             // Update total amount displayed
             document.getElementById("totalAmount").innerText = total;
