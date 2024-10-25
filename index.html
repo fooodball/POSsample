@@ -4,28 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple POS System with History</title>
+    <style>
+        .product-button {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .product-button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <h1>Simple POS System</h1>
-    <!-- Product selection -->
+
+    <h2>Products</h2>
     <div>
-        <label>Product:</label>
-        <select id="productSelect">
-            <option value="140">Brioche - ฿140</option>
-            <option value="60">Bagel - ฿60</option>
-            <option value="130">Sourdough - ฿130</option>
-            <option value="80">Focaccia - ฿80</option>
-            <option value="45">Baguette - ฿45</option>
-            <option value="15">Tofu Milk - ฿15</option>
-            <option value="40">BNB - ฿40</option>
-        </select>
+        <button class="product-button" onclick="addItem('Brioche', 140)">Brioche - ฿140</button>
+        <button class="product-button" onclick="addItem('Bagel', 45)">Bagel - ฿45</button>
+        <button class="product-button" onclick="addItem('Bagel creamcheese', 60)">Bagel creamcheese - ฿60</button>
+        <button class="product-button" onclick="addItem('Bagel cranberry creamcheese', 60)">Bagel cranberry creamcheese - ฿60</button>
+        <button class="product-button" onclick="addItem('Sourdough S', 130)">Sourdough S - ฿130</button>
+        <button class="product-button" onclick="addItem('SD walnut cranberry', 145)">SD walnut cranberry - ฿145</button>
+        <button class="product-button" onclick="addItem('SD olive', 145)">SD olive - ฿145</button>
+        <button class="product-button" onclick="addItem('Focaccia', 80)">Focaccia - ฿80</button>
+        <button class="product-button" onclick="addItem('Focaccia bacon', 80)">Focaccia bacon - ฿80</button>
+        <button class="product-button" onclick="addItem('Focaccia Pesto', 80)">Focaccia Pesto - ฿80</button>
+        <button class="product-button" onclick="addItem('Focaccia PP', 80)">Focaccia PP - ฿80</button>
+        <button class="product-button" onclick="addItem('Baguette', 45)">Baguette - ฿45</button>
+        <button class="product-button" onclick="addItem('Baguette veal', 95)">Baguette veal - ฿95</button>
+        <button class="product-button" onclick="addItem('Baguette cheese', 95)">Baguette cheese - ฿95</button>
+        <button class="product-button" onclick="addItem('Tofu Milk', 15)">Tofu Milk - ฿15</button>
+        <button class="product-button" onclick="addItem('BNB', 40)">BNB - ฿40</button>
     </div>
+
     <div>
         <label>Quantity:</label>
         <input type="number" id="quantity" value="1" min="1">
     </div>
-    <button onclick="addItem()">Add to Cart</button>
-
     <h2>Cart</h2>
     <table id="cartTable" border="1">
         <tr>
@@ -53,11 +73,8 @@
             displayHistory();
         };
 
-        function addItem() {
-            const productSelect = document.getElementById("productSelect");
+        function addItem(productName, unitPrice) {
             const quantity = parseInt(document.getElementById("quantity").value);
-            const unitPrice = parseInt(productSelect.value);
-            const productName = productSelect.options[productSelect.selectedIndex].text.split(" - ")[0];
             const totalPrice = unitPrice * quantity;
 
             // Check if the item already exists in the cart
