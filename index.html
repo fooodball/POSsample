@@ -189,4 +189,22 @@
 
         function clearHistory() {
             localStorage.removeItem("transactionHistory");
-           
+            displayHistory();
+        }
+
+        function resetCart() {
+            document.getElementById("cartTable").innerHTML = `
+                <tr>
+                    <th>Product</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>`;
+            total = 0;
+            cartItems = [];
+            document.getElementById("totalAmount").innerText = total;
+        }
+    </script>
+</body>
+</html>
