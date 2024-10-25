@@ -46,7 +46,6 @@
         <label>Quantity:</label>
         <input type="number" id="quantity" value="1" min="1">
     </div>
-
     <h2>Cart</h2>
     <table id="cartTable" border="1">
         <tr>
@@ -57,7 +56,6 @@
             <th>Actions</th>
         </tr>
     </table>
-
     <h3>Total: ฿<span id="totalAmount">0</span></h3>
     <button onclick="checkout()">Checkout</button>
     <button onclick="voidTransaction()">Void</button> <!-- New Void Button -->
@@ -92,7 +90,7 @@
                 total += totalPrice;
 
                 // Update the cart table row
-                const row = document.getElementById(`item-${existingItemIndex}`);
+                const row = document.getElementById(item-${existingItemIndex});
                 row.cells[2].innerText = existingItem.quantity;
                 row.cells[3].innerText = "฿" + existingItem.totalPrice;
 
@@ -104,7 +102,7 @@
                 // Add item to cart table
                 const cartTable = document.getElementById("cartTable");
                 const row = cartTable.insertRow();
-                row.id = `item-${cartItems.length - 1}`; // Assign an ID for easy access
+                row.id = item-${cartItems.length - 1}; // Assign an ID for easy access
                 row.insertCell(0).innerText = productName;
                 row.insertCell(1).innerText = "฿" + unitPrice;
                 row.insertCell(2).innerText = quantity;
@@ -112,10 +110,10 @@
 
                 // Add action buttons for quantity adjustment
                 const actionsCell = row.insertCell(4);
-                actionsCell.innerHTML = `
+                actionsCell.innerHTML = 
                     <button onclick="adjustQuantity(${cartItems.length - 1}, -1)">-</button>
                     <button onclick="adjustQuantity(${cartItems.length - 1}, 1)">+</button>
-                `;
+                ;
             }
 
             // Update total amount displayed
@@ -137,7 +135,7 @@
             document.getElementById("totalAmount").innerText = total;
 
             // Update the cart table
-            const row = document.getElementById(`item-${index}`);
+            const row = document.getElementById(item-${index});
             row.cells[2].innerText = item.quantity;
             row.cells[3].innerText = "฿" + item.totalPrice;
         }
@@ -191,12 +189,12 @@
 
             history.forEach(transaction => {
                 const div = document.createElement("div");
-                div.innerHTML = `<strong>Date:</strong> ${transaction.date} | <strong>Total:</strong> ฿${transaction.total}`;
+                div.innerHTML = <strong>Date:</strong> ${transaction.date} | <strong>Total:</strong> ฿${transaction.total};
 
                 const ul = document.createElement("ul");
                 transaction.items.forEach(item => {
                     const li = document.createElement("li");
-                    li.innerText = `${item.productName} - ฿${item.unitPrice} x ${item.quantity} = ฿${item.totalPrice}`;
+                    li.innerText = ${item.productName} - ฿${item.unitPrice} x ${item.quantity} = ฿${item.totalPrice};
                     ul.appendChild(li);
                 });
 
@@ -212,10 +210,18 @@
         }
 
         function resetCart() {
-            document.getElementById("cartTable").innerHTML = `
+            document.getElementById("cartTable").innerHTML = 
                 <tr>
                     <th>Product</th>
                     <th>Unit Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
                     <th>Actions</th>
+                </tr>;
+            total = 0;
+            cartItems = [];
+            document.getElementById("totalAmount").innerText = total;
+        }
+    </script>
+</body>
+</html>
