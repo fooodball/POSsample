@@ -11,9 +11,9 @@
     <div>
         <label>Product:</label>
         <select id="productSelect">
-            <option value="10">Bread - $10</option>
-            <option value="15">Bagel - $15</option>
-            <option value="8">Pastry - $8</option>
+            <option value="10">Bread - ฿10</option>
+            <option value="15">Bagel - ฿15</option>
+            <option value="8">Pastry - ฿8</option>
         </select>
     </div>
     <div>
@@ -31,7 +31,7 @@
             <th>Total</th>
         </tr>
     </table>
-    <h3>Total: $<span id="totalAmount">0</span></h3>
+    <h3>Total: ฿<span id="totalAmount">0</span></h3>
     <button onclick="checkout()">Checkout</button>
 
     <script>
@@ -51,16 +51,16 @@
             const cartTable = document.getElementById("cartTable");
             const row = cartTable.insertRow();
             row.insertCell(0).innerText = productName;
-            row.insertCell(1).innerText = "$" + unitPrice;
+            row.insertCell(1).innerText = "฿" + unitPrice;
             row.insertCell(2).innerText = quantity;
-            row.insertCell(3).innerText = "$" + totalPrice;
+            row.insertCell(3).innerText = "฿" + totalPrice;
 
             // Update total amount displayed
             document.getElementById("totalAmount").innerText = total;
         }
 
         function checkout() {
-            alert("Total Payment: $" + total + "\nThank you for your purchase!");
+            alert("Total Payment: ฿" + total + "\nThank you for your purchase!");
             // Reset everything for a new transaction
             document.getElementById("cartTable").innerHTML = `
                 <tr>
