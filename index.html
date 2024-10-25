@@ -57,16 +57,12 @@
             <th>Actions</th>
         </tr>
     </table>
+
     <h3>Total: ฿<span id="totalAmount">0</span></h3>
     <button onclick="checkout()">Checkout</button>
-    <button onclick="voidTransaction()">Void</button>
+    <button onclick="voidTransaction()">Void</button> <!-- New Void Button -->
 
     <h2>Transaction History</h2>
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate">
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate">
-    <button onclick="filterHistory()">Filter</button>
     <div id="historySection">No transaction history.</div>
     <button onclick="clearHistory()">Clear History</button>
 
@@ -183,23 +179,17 @@
             alert("Transaction voided.");
         }
 
-        function displayHistory(transactions) {
+        function displayHistory() {
             const historySection = document.getElementById("historySection");
             historySection.innerHTML = ""; // Clear previous history
 
-            const history = transactions || JSON.parse(localStorage.getItem("transactionHistory")) || [];
+            const history = JSON.parse(localStorage.getItem("transactionHistory")) || [];
             if (history.length === 0) {
                 historySection.innerText = "No transaction history.";
                 return;
             }
 
-            // Sort history by date (latest first)
-            history.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            // Summarize total sales
-            let totalSales = 0;
             history.forEach(transaction => {
-                totalSales += transaction.total;
                 const div = document.createElement("div");
                 div.innerHTML = `<strong>Date:</strong> ${transaction.date} | <strong>Total:</strong> ฿${transaction.total}`;
 
@@ -208,3 +198,24 @@
                     const li = document.createElement("li");
                     li.innerText = `${item.productName} - ฿${item.unitPrice} x ${item.quantity} = ฿${item.totalPrice}`;
                     ul.appendChild(li);
+                });
+
+                div.appendChild(ul);
+                historySection.appendChild(div);
+                historySection.appendChild(document.createElement("hr"));
+            });
+        }
+
+        function clearHistory() {
+            localStorage.removeItem("transactionHistory");
+            displayHistory();
+        }
+
+        function resetCart() {
+            document.getElementById("cartTable").innerHTML = `
+                <tr>
+                    <th>Product</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
