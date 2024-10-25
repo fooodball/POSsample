@@ -38,6 +38,7 @@
     </table>
     <h3>Total: ฿<span id="totalAmount">0</span></h3>
     <button onclick="checkout()">Checkout</button>
+    <button onclick="voidTransaction()">Void</button> <!-- New Void Button -->
 
     <h2>Transaction History</h2>
     <div id="historySection">No transaction history.</div>
@@ -148,6 +149,17 @@
             displayHistory();
         }
 
+        function voidTransaction() {
+            if (cartItems.length === 0) {
+                alert("Cart is already empty!");
+                return;
+            }
+
+            // Reset cart without saving
+            resetCart();
+            alert("Transaction voided.");
+        }
+
         function displayHistory() {
             const historySection = document.getElementById("historySection");
             historySection.innerHTML = ""; // Clear previous history
@@ -177,22 +189,4 @@
 
         function clearHistory() {
             localStorage.removeItem("transactionHistory");
-            displayHistory();
-        }
-
-        function resetCart() {
-            document.getElementById("cartTable").innerHTML = `
-                <tr>
-                    <th>Product</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Actions</th>
-                </tr>`;
-            total = 0;
-            cartItems = [];
-            document.getElementById("totalAmount").innerText = total;
-        }
-    </script>
-</body>
-</html>
+           
